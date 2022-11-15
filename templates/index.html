@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scibids Technical Test</title>
+</head>
+
+<body>
+    <div class="container"></div>
+
+    <p>
+        Name: <span id="doc1"></span> <br>
+        Is serious: <span id="is-serious"></span> <br>
+        Number of employees: <span id="employees"></span> <br>
+        Tags: <span id="tags"></span> <br>
+    </p>
+    
+    <script>
+        const BASE = "http://127.0.0.1:7003/"
+
+        async function getDocument(document_id) {
+            try {
+                const response = await fetch(BASE + "documents/" + document_id, {method: 'get'});
+                const doc = await response.json();
+                const response2 = await fetch(BASE + "documents/" + document_id + "/tags", {method: 'get'});
+                const tags = await response2.json();
+                const version = {
+                    ...doc.data,
+                    ...tags
+                }
+                return version
+            } catch (err) {
+                console.log('Request failed', err);
+            }
+        }
+
+
+        async function formatObject() {
+            const v1 = await getDocument(1);
+            const v2 = await getDocument(2);
+            // Company name
+            if (v1.name == v2.name) {
+                document.getElementById("doc1").textContent = v2.name;
+            }
+            // Is serious?
+            if (v2.is_serious == true ) {
+                document.getElementById("is-serious").textContent = "Yes";
+            } else {
+                document.getElementById("is-serious").textContent = "No";
+            }
+            // Number of Employees
+            if (v1.number_of_employees == v2.number_of_employees) {
+                document.getElementById("employees").textContent = v2.number_of_employees;
+            } else {
+                document.getElementById("employees").textContent = (v1.number_of_employees) 
+                const tempEmployees = [v1.number_of_employees, v2.number_of_employees];
+                console.log(tempEmployees);
+                for (element in tempEmployees) {
+                    console.log()
+                    document.getElementById("employees").textContent = tempEmployees[element]
+                }    
+            }
+            // Tags
+            
+            document.getElementById("tags").textContent = v2.tags;
+        }
+
+        formatObject();
+
+    </script>
+</body>
+</html>
