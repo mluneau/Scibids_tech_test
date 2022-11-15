@@ -39,30 +39,31 @@
         async function formatObject() {
             const v1 = await getDocument(1);
             const v2 = await getDocument(2);
+
             // Company name
             if (v1.name == v2.name) {
                 document.getElementById("doc1").textContent = v2.name;
             }
+            
             // Is serious?
             if (v2.is_serious == true ) {
                 document.getElementById("is-serious").textContent = "Yes";
             } else {
                 document.getElementById("is-serious").textContent = "No";
             }
+            
             // Number of Employees
             if (v1.number_of_employees == v2.number_of_employees) {
                 document.getElementById("employees").textContent = v2.number_of_employees;
             } else {
-                document.getElementById("employees").textContent = (v1.number_of_employees) 
-                const tempEmployees = [v1.number_of_employees, v2.number_of_employees];
-                console.log(tempEmployees);
-                for (element in tempEmployees) {
-                    console.log()
-                    document.getElementById("employees").textContent = tempEmployees[element]
-                }    
+                arr = [];
+                arr[0] = v1.number_of_employees;
+                arr[1] = v2.number_of_employees;
+                document.getElementById("employees").textContent = arr;
             }
-            // Tags
             
+            // Tags
+
             document.getElementById("tags").textContent = v2.tags;
         }
 
